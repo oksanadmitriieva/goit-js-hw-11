@@ -7,7 +7,7 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import { fetchImgs } from './js/pixabay-api.js'; 
 import { renderGallery } from './js/render-functions.js';
-import Error from './img/octagon.svg';
+
 
 
 const lightbox = new SimpleLightbox('.gallery a', {
