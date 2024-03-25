@@ -1,12 +1,27 @@
-import{i,S as d}from"./assets/vendor-5b791d57.js";(function(){const s=document.createElement("link").relList;if(s&&s.supports&&s.supports("modulepreload"))return;for(const t of document.querySelectorAll('link[rel="modulepreload"]'))c(t);new MutationObserver(t=>{for(const o of t)if(o.type==="childList")for(const n of o.addedNodes)n.tagName==="LINK"&&n.rel==="modulepreload"&&c(n)}).observe(document,{childList:!0,subtree:!0});function e(t){const o={};return t.integrity&&(o.integrity=t.integrity),t.referrerPolicy&&(o.referrerPolicy=t.referrerPolicy),t.crossOrigin==="use-credentials"?o.credentials="include":t.crossOrigin==="anonymous"?o.credentials="omit":o.credentials="same-origin",o}function c(t){if(t.ep)return;t.ep=!0;const o=e(t);fetch(t.href,o)}})();function u(){const r=h.value.trim().split(",").join("+"),s=new URLSearchParams({key:"42993354-9366f462d179fd9692b03d8e1",q:[r],image_type:"photo",orientation:"horizontal",safesearch:!0});return y(),fetch(`https://pixabay.com/api/?${s}`).then(e=>{if(!e.ok)throw new Error(e.status);return e.json()})}function f(r){if(r.length==0)i.error({message:"Sorry, there are no images matching your search query. Please try again!",theme:"dark",progressBarColor:"#FFFFFF",color:"#EF4040",position:"topRight"});else{const s=r.map(e=>`<li class="photos-list-item">
-            <a class="photos-list-link" href="${e.largeImageURL}">
-            <img class="photo" src="${e.webformatURL}" alt="${e.tags}"/>
-            </a>
-            <ul class="photo-information-container">
-            <li class="item-photo-information-container"><p><span class="accent">Likes</span></br>${e.likes}</p></li>
-            <li class="item-photo-information-container"><p><span class="accent">Views</span></br>${e.views}</p></li>
-            <li class="item-photo-information-container"><p><span class="accent">Comments</span></br>${e.comments}</p></li>
-            <li class="item-photo-information-container"><p><span class="accent">Downloads</span></br>${e.downloads}</p></li>
-            </ul>
-            </li>`).join("");m.insertAdjacentHTML("beforeend",s),g.refresh()}}const a=document.querySelector(".search-form"),h=a.elements.search,m=document.querySelector(".gallery"),g=new d(".gallery a",{captionsData:"alt",captionDelay:250}),l=document.querySelector(".loader");l.style.display="none";const y=()=>{l.style.display="flex"},p=()=>{l.style.display="none"};a.addEventListener("submit",F);function F(r){r.preventDefault(),m.innerHTML="",r.target.elements.search.value.trim()!==""?(window.onload=()=>{u().then(e=>{f(e.hits),p()}).catch(e=>{console.log(e),p(),i.error({message:"Sorry, an error occurred while loading. Please try again!",theme:"dark",progressBarColor:"#FFFFFF",color:"#EF4040",position:"topRight"})})},window.onload(),a.reset()):i.show({message:"Please complete the field!",theme:"dark",progressBarColor:"#FFFFFF",color:"#EF4040",position:"topRight"})}
+import{S as p,i as c}from"./assets/vendor-5b791d57.js";(function(){const r=document.createElement("link").relList;if(r&&r.supports&&r.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))s(e);new MutationObserver(e=>{for(const o of e)if(o.type==="childList")for(const n of o.addedNodes)n.tagName==="LINK"&&n.rel==="modulepreload"&&s(n)}).observe(document,{childList:!0,subtree:!0});function t(e){const o={};return e.integrity&&(o.integrity=e.integrity),e.referrerPolicy&&(o.referrerPolicy=e.referrerPolicy),e.crossOrigin==="use-credentials"?o.credentials="include":e.crossOrigin==="anonymous"?o.credentials="omit":o.credentials="same-origin",o}function s(e){if(e.ep)return;e.ep=!0;const o=t(e);fetch(e.href,o)}})();function m(i){const r={KEYWORD:"nature",IMAGE_TYPE:"photo",SAFESEARCH:"true",ORIENTATION:"horizontal",API_KEY:"42993354-9366f462d179fd9692b03d8e1",URL:"https://pixabay.com/api/"},t=`${r.URL}?key=${r.API_KEY}&q=${i}&image_type=${r.IMAGE_TYPE}&safesearch=${r.SAFESEARCH}&orientation=${r.ORIENTATION}`;return fetch(t).then(s=>{if(!s.ok)throw new Error(s.status);return s.json()}).then(s=>{if(s&&s.hits)return s})}function y(i){const r=document.querySelector(".list");if(!r){console.error("Gallery element not found");return}const t=i.hits.slice(0,9);r.innerHTML=t.map(({webformatURL:s,largeImageURL:e,tags:o,likes:n,views:u,comments:d,downloads:f})=>`
+          <li class="gallery-item">
+            <div class="gallery-box item-card-wrapper">
+              <a class="gallery-link" href="${e}">
+                <img class="gallery-img" src="${s}" alt="${o}" loading="lazy">
+              </a>
+              <div class="card-box">
+                <div>
+                  <p class="card-box-text"><b>Likes</b></p>
+                  <p class="card-box-text">${n}</p>
+                </div>
+                <div>
+                  <p class="card-box-text"><b>Views</b></p>
+                  <p class="card-box-text">${u}</p>
+                </div>
+                <div>
+                  <p class="card-box-text"><b>Comments</b></p>
+                  <p class="card-box-text">${d}</p>
+                </div>
+                <div>
+                  <p class="card-box-text"><b>Downloads</b></p>
+                  <p class="card-box-text">${f}</p>
+                </div>
+              </div>
+            </div>
+          </li>`).join("")}const g=new p(".gallery a",{captionsData:"alt",captionDelay:250}),l=document.querySelector(".form");document.querySelector(".list");const a=document.querySelector(".loader");l.addEventListener("submit",h);a.style.display="none";function h(i){i.preventDefault();const r=l.elements.query.value.trim();if(r===""){c.warning({message:"Please enter a search query.",messageColor:"black",backgroundColor:"#ffac26",position:"topRight",pauseOnHover:!1,progressBarColor:"black",timeout:3e3});return}a.style.display="block",m(r).then(t=>{if(t&&t.hits&&t.hits.length>0)return t}).then(t=>{y(t),g.refresh()}).catch(t=>c.error({theme:"dark",message:"Sorry, there are no images matching your search query. Please try again!",messageColor:"#ffffff",backgroundColor:"#ef4040",position:"topRight",iconUrl:Error,pauseOnHover:!1,progressBarColor:"#b51b1b",timeout:3e3})).finally(()=>{a.style.display="none",l.reset()})}
 //# sourceMappingURL=commonHelpers.js.map
